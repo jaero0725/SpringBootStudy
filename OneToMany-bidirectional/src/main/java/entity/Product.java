@@ -1,23 +1,23 @@
 package entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-/*
- * Entity class : Java class that is mapped to a database table
- * 
- * Java Annotations 
- * - map class to database table
- * - map fields to database columns
- * 
- */
+
+//Child - Many
+//Parent - One
 
 @Getter
 @Setter
@@ -33,4 +33,8 @@ public class Product {
 	private String name;
 	private int price;
 	private String description;
+
+	@ManyToOne
+	@JoinColumn(name="category_id")
+	private Category category; // foreign key로 변환이 된다. 
 }
