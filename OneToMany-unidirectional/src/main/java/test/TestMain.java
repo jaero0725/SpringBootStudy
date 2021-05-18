@@ -60,6 +60,16 @@ public class TestMain {
 		session.save(product3);
 		session.save(product4);
 		
+		session.delete(product3);
+		session.delete(product4);
+		
+		//Category는 삭제 하지 않고 product만 삭제 시키기 위함. 
+		product1.setCategory(null);	//product1 -> null;
+		session.delete(product1);
+		
+		//Error
+		//deleted object would be re-saved by cascade (remove deleted object from associations)
+		//product1, product2 가 같이 Category를 가리키고 있기때문에, 문제가 생김. 
 		//product가 저장되면, Cascade에 의해서 Category도 같이 저장이 된다.
 		//cascade=CascadeType.ALL
 		
