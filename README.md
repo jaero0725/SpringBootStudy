@@ -1,2 +1,2 @@
-# Study about Spring-Boot & Hibernate & RESTful Web Service
+# Spring-Boot & Hibernate & RESTful Web Service
 
