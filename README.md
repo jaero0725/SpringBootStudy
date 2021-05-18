@@ -1,2 +1,2 @@
-# SpringBootStudy
-study springboot
+# Study about Spring-Boot & Hibernate & RESTful Web Service
+
