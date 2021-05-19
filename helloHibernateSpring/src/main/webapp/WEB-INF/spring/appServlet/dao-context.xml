@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+
+	<context:property-placeholder
+		location="/WEB-INF/props/jdbc.properties" />
+		
+	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="${jdbc.driverClassName}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+	</bean>
+	
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+	  <property name="dataSource" ref="dataSource"></property>
+	
+	  <!-- mapping으로 적어줄 필요 없이 이렇게 하면된다.  -->
+	  <property name="packagesToScan">
+	    <list>
+	      <value>kr.ac.hansung.model</value>	<!-- @Entity를 찾음. -->
+	    </list>
+	  </property>
+	
+	  <property name="hibernateProperties">
+	    <props>
+	      <prop key="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</prop>
+	      <prop key="hibernate.hbm2ddl.auto">update</prop> <!-- create / update : 테이블을 계속 다시 만들지 않음. ㄴ -->
+	      <prop key="hibernate.show_sql">true</prop>
+	      <prop key="hibernate.format_sql">false</prop>	<!-- 길어지니깐 false준다. -->
+	    </props>
+	  </property>
+	</bean>
+	
+	<tx:annotation-driven transaction-manager="transactionManager" />
+	<bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+	  <property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+	<context:component-scan base-package="kr.ac.hansung.dao"> <!-- @Repository, @Service, @Controller 찾아줌 Bean으로 등록  -->
+	</context:component-scan>
+
+</beans>
