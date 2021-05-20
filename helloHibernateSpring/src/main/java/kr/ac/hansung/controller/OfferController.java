@@ -29,6 +29,15 @@ public class OfferController {
 		return "offers";
 	}
 	
+	@RequestMapping("/newoffers")
+	public String showNewOffers(Model model) {
+		
+		List<Offer> offers = offerService.getCurrent();
+		model.addAttribute("offers", offers);
+		
+		return "newoffers";
+	}
+	
 	@RequestMapping("/createoffer")
 	public String createOffer(Model model) {
 		
