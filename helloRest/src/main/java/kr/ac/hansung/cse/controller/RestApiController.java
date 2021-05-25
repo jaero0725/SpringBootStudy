@@ -2,11 +2,14 @@ package kr.ac.hansung.cse.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import kr.ac.hansung.cse.exception.ErrorResponse;
+import kr.ac.hansung.cse.exception.UserDuplicatedException;
+import kr.ac.hansung.cse.exception.UserNotFoundException;
 import kr.ac.hansung.cse.model.User;
 import kr.ac.hansung.cse.service.UserService;
 
@@ -44,7 +50,7 @@ public class RestApiController {
 		User user = userService.findById(id);
 		if(user == null) {
 			//to do list: custom exception
-			// throw new UserNotFoundException(id);
+			throw new UserNotFoundException(id);
 		}
 		return new ResponseEntity<User>(user, HttpStatus.OK);
 	}
@@ -56,7 +62,7 @@ public class RestApiController {
 		//중복확인
 		if(userService.doesUserExist(user)) {
 			//to do list: exception
-			//throw new UserDuplicatedException(user.getName());
+			throw new UserDuplicatedException(user.getName());
 		}
 		userService.saveUser(user);
 		
@@ -73,7 +79,7 @@ public class RestApiController {
 		
 		if(currentUser == null) {
 			//to do list: custom exception
-			//throw new UserNotFoundException(id);
+			throw new UserNotFoundException(id);
 		}
 		
 		currentUser.setName(user.getName());
@@ -90,7 +96,7 @@ public class RestApiController {
 		User user = userService.findById(id);
 		if(user == null) {
 			//to do list: custom exception
-			//throw new UserNotFoundException(id);
+			throw new UserNotFoundException(id);
 		}
 		userService.deleteUserById(id);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
