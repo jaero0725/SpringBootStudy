@@ -14,3 +14,11 @@
 * OneToMany-bidirectional
 * <a href="#">helloRest</a>
 * <a href="#">eCommerce</a>
+
+## :clipboard: 주요 키워드
+* Spring & Spring Boot 
+* REST API
+* 시큐리티
+* 스케줄링
+* HTTP 통신
+* JPA & Hibernate
