@@ -22,3 +22,5 @@
 * 스케줄링
 * HTTP 통신
 * JPA & Hibernate
+* 트랜잭션
+* 예외처리
