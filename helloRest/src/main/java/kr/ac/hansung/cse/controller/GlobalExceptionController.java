@@ -12,7 +12,6 @@ import kr.ac.hansung.cse.exception.UserDuplicatedException;
 import kr.ac.hansung.cse.exception.UserNotFoundException;
 
 //특정 컨트롤러가 아니라, Application 전체에 관해 Exception 처리를 한다. 
-
 @ControllerAdvice
 public class GlobalExceptionController {
 	
