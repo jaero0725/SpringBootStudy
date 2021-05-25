@@ -62,7 +62,7 @@ public class RestApiController {
 		
 		HttpHeaders headers = new HttpHeaders();
 		headers.setLocation(ucBuilder.path("/api/users/{id}").buildAndExpand(user.getId()).toUri());
-		
+		//헤더에 location을 준다.
 		return new ResponseEntity<>(headers, HttpStatus.CREATED);
 	}
 	
@@ -73,7 +73,7 @@ public class RestApiController {
 		
 		if(currentUser == null) {
 			//to do list: custom exception
-			// throw new UserNotFoundException(id);
+			//throw new UserNotFoundException(id);
 		}
 		
 		currentUser.setName(user.getName());
@@ -90,7 +90,7 @@ public class RestApiController {
 		User user = userService.findById(id);
 		if(user == null) {
 			//to do list: custom exception
-			// throw new UserNotFoundException(id);
+			//throw new UserNotFoundException(id);
 		}
 		userService.deleteUserById(id);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
