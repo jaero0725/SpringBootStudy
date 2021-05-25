@@ -12,5 +12,5 @@
 * helloHibernate02
 * OneToMany-unidirectional
 * OneToMany-bidirectional
-* helloRest
-* eCommerce 
+* <a href="#"helloRest</a>
+* <a href="#">eCommerce</a>
