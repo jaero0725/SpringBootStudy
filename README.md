@@ -3,12 +3,12 @@
 ## :clipboard: 개발환경
 * Eclipse & IntelliJ
 * Postman
-* MySQL 
+* MySQL Workbench
 * Sourcetree
 * GitHub
 
 ## :clipboard: 목차 
-* Hibernate
+* Hibernate 
 * Hibernate With Spring
 * RESTful Web Service
 * Spring Boot 
