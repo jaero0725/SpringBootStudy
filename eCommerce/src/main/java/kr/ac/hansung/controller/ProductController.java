@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import kr.ac.hansung.entity.Category;
 import kr.ac.hansung.entity.Product;
 import kr.ac.hansung.exception.NotFoundException;
 import kr.ac.hansung.service.ProductService;
