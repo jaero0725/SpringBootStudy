@@ -1,5 +1,7 @@
 package kr.ac.hansung.controller;
 
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +15,6 @@ import kr.ac.hansung.entity.Product;
 import kr.ac.hansung.exception.NotFoundException;
 import kr.ac.hansung.service.CategoryService;
 import kr.ac.hansung.service.ProductService;
-
 
 /* API Endpoint for categories and products association
  *
@@ -37,12 +38,18 @@ public class CategoryProductsController {
 	@Autowired
 	private ProductService productService;
 
+	// 카테고리에 딸려있는 product전부가져오기
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<?> retrieveAllProducts(@PathVariable Long categoryid) {
+		final Category category = categoryService.getCategoryById(categoryid);
+		if (category == null)
+			throw new NotFoundException(categoryid);
 
+		final Set<Product> products = category.getProducts();
 		
-	}		
-	
+		return ResponseEntity.ok(products);
+	}
+
 	@RequestMapping(path = "/{productid}", method = RequestMethod.POST)
 	public ResponseEntity<?> addProduct(@PathVariable Long categoryid, @PathVariable Long productid) {
 
@@ -70,8 +77,29 @@ public class CategoryProductsController {
 
 	@RequestMapping(path = "/{productid}", method = RequestMethod.DELETE)
 	public ResponseEntity<?> removeProduct(@PathVariable Long categoryid, @PathVariable Long productid) {
+		// Getting the requiring category; or throwing exception if not found
+		final Category category = categoryService.getCategoryById(categoryid);
+		if (category == null)
+			throw new NotFoundException(categoryid);
 
 		
+		// Getting the requiring product; or throwing exception if not found
+		final Product product = productService.getProductById(productid);
+		if (product == null)
+			throw new NotFoundException(productid);
+
+		if (productService.hasCategory(product, category)) {
+			throw new IllegalArgumentException(
+					"product " + product.getId() + " already contains category " + category.getId());
+		}
+	
+		Set<Product> products = category.getProducts();
+		products.remove(product);
+		
+		category.setProducts(products);
+		categoryService.updateCategory(category);
+		
+		return ResponseEntity.noContent().build();
 	}
 
 }

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import kr.ac.hansung.entity.Category;
 import kr.ac.hansung.entity.Product;
 import kr.ac.hansung.exception.NotFoundException;
 import kr.ac.hansung.service.ProductService;
@@ -55,11 +56,15 @@ public class ProductController {
 	@RequestMapping(path = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Product> retrieveProduct(@PathVariable Long id) {
 
-		
+		Product product = productService.getProductById(id);
+	       
+    	if(product == null) {
+			throw new NotFoundException(id);
+		}
+    	return ResponseEntity.ok(product);
 	}
 
 	// DTO(Data Transfer Object) : 계층간 데이터 교환을 위한 객체, 여기서는 클라이언트(Postman)에서 오는 데이터를 수신할 목적으로 사용
-    // Product와 ProductDto와의 차이를 비교해서 살펴보기 바람
     @RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Product> createProduct(@RequestBody @Valid ProductDto request) {
 
@@ -71,7 +76,15 @@ public class ProductController {
 	@RequestMapping(path = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody @Valid ProductDto request) {
 		
+		Product currentProduct = productService.getProductById(id);
 		
+		if(currentProduct == null) {
+			throw new NotFoundException(id);
+		}
+    	currentProduct.setName(request.getName());
+    	currentProduct.setPrice(request.getPrice());
+		
+		return ResponseEntity.ok(currentProduct);
 		
 	}
 
@@ -94,7 +107,6 @@ public class ProductController {
 	@Getter
 	@Setter
 	static class ProductDto {
-		
         @NotNull(message = "name is required")
         @Size(message = "name must be equal to or lower than 300", min = 1, max = 300)
         private String name;           

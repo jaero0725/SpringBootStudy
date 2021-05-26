@@ -9,7 +9,9 @@
 		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
-
+	<context:annotation-config></context:annotation-config>
+	<context:property-placeholder	location="/WEB-INF/props/jdbc.properties" />
+	
 	<bean id="dataSource"
 		class="org.apache.commons.dbcp2.BasicDataSource"
 		destroy-method="close">
@@ -20,25 +22,31 @@
 		<property name="password" value="${jdbc.password}" />
 	</bean>
 
-	<context:annotation-config></context:annotation-config>
 
-	<context:property-placeholder	location="/WEB-INF/props/jdbc.properties" />
-
-
-	<bean id="sessionFactory"
-		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"></property>
-
 		
+		<property name="packagesToScan">
+			<list>
+				<value>kr.ac.hansung.entity</value>	<!-- @Entity를 찾음. -->
+			</list>
+		</property>
+		
+		<property name="hibernateProperties">
+	    <props>
+	      <prop key="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</prop>
+	      <prop key="hibernate.hbm2ddl.auto">update</prop> 
+	      <prop key="hibernate.show_sql">true</prop>
+	      <prop key="hibernate.format_sql">false</prop>	
+	    </props>
+	  </property>
 	</bean>
 
-	<tx:annotation-driven
-		transaction-manager="transactionManager" />
-
+	<tx:annotation-driven transaction-manager="transactionManager" />
 	<bean id="transactionManager"
 		class="org.springframework.orm.hibernate5.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
-
-
+	
+	<context:component-scan base-package="kr.ac.hansung.dao"> </context:component-scan>
 </beans>

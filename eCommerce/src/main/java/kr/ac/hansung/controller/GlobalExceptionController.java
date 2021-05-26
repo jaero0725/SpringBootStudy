@@ -14,8 +14,7 @@ import kr.ac.hansung.exception.NotFoundException;
 public class GlobalExceptionController {
 
 	@ExceptionHandler(NotFoundException.class)
-	public ResponseEntity<ErrorResponse> 
-		handleNotFoundException(HttpServletRequest req, NotFoundException ex) {
+	public ResponseEntity<ErrorResponse> handleNotFoundException(HttpServletRequest req, NotFoundException ex) {
 		
 		String requestURL = req.getRequestURL().toString();
 		
