@@ -38,7 +38,6 @@ public class CategoryController {
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<?> retrieveAllCategories() {
-        // Getting all categories in application...
         final List<Category> categories = categoryService.getAllCategories();
 
         if (categories.isEmpty()) {
@@ -52,15 +51,18 @@ public class CategoryController {
 
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> retrieveCategory(@PathVariable Long id) {
-    	
+    	final Category category = categoryService.getCategoryById(id);
        
-		
+    	if(category == null) {
+			throw new NotFoundException(id);
+		}
+    	return ResponseEntity.ok(category);
     }
 
     // DTO(Data Transfer Object) : 계층간 데이터 교환을 위한 객체, 여기서는 클라이언트(Postman)에서 오는 데이터를 수신할 목적으로 사용
     // Category와 CategoryDto와의 차이를 비교해서 살펴보기 바람
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<?> createCategory(@RequestBody @Valid CategoryDto request) {
+    public ResponseEntity<?> createCategory(@RequestBody @Valid CategoryDto request) { //CategoryDto 날라오는 객체 
     	
         // Creating a new category in the application...
         final Category category = categoryService.createCategory(request.getName());
@@ -71,8 +73,17 @@ public class CategoryController {
 
     @RequestMapping(path = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<?> updateCategory(@PathVariable Long id, @RequestBody @Valid CategoryDto request) {
-    	
        
+    	final Category currentCategory = categoryService.getCategoryById(id);
+    	
+    	if(currentCategory == null) {
+			throw new NotFoundException(id);
+		}
+    	
+    	currentCategory.setName(request.getName());
+		categoryService.updateCategory(currentCategory);
+		
+		return ResponseEntity.ok(currentCategory);
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)

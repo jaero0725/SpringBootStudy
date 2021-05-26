@@ -6,7 +6,7 @@ import kr.ac.hansung.entity.Category;
 
 
 /**
- * Service 인터페이스를 정의하고 이에 대한 구현 클래스 ServiceImple을 정의하는 것이 일반적인 관례
+ * Service 인터페이스를 정의하고 이에 대한 구현 클래스 ServiceImpl을 정의하는 것이 일반적인 관례
  *
  */
 public interface CategoryService {

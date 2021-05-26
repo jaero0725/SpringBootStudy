@@ -14,7 +14,6 @@ import kr.ac.hansung.entity.Category;
 import kr.ac.hansung.exception.NotFoundException;
 import kr.ac.hansung.service.CategoryService;
 
-
 /* API Endpoint for categories and subcategories association
  * 
  * To see the current child categories for a given category, you can do a GET on
@@ -30,51 +29,66 @@ import kr.ac.hansung.service.CategoryService;
 @RequestMapping(path = "/api/categories/{parentid}/subcategories")
 public class CategorySubcategoriesController {
 
-    @Autowired
-    private CategoryService categoryService;    
+	@Autowired
+	private CategoryService categoryService;
 
-    @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<?> retrieveAllSubcategories(@PathVariable Long parentid) {
-    	
-        // Getting the requiring category; or throwing exception if not found
-        final Category parent = categoryService.getCategoryById(parentid);
-        if( parent == null)
-        	throw  new NotFoundException(parentid);
-        
-        // Getting all categories in application...
-        final Set<Category> subcategories = parent.getChildCategories();
+	// parent category에 딸린 subcategroies 다 가져오기
+	@RequestMapping(method = RequestMethod.GET)
+	public ResponseEntity<?> retrieveAllSubcategories(@PathVariable Long parentid) {
 
-        return ResponseEntity.ok(subcategories);
-    }
+		// Getting the requiring category; or throwing exception if not found
+		final Category parent = categoryService.getCategoryById(parentid);
+		if (parent == null)
+			throw new NotFoundException(parentid);
 
-    @RequestMapping(path = "/{childid}", method = RequestMethod.POST)
-    public ResponseEntity<?> addSubcategory(@PathVariable Long parentid, @PathVariable Long childid) {
-    	
-       
-    }
+		// Getting all categories in application...
+		final Set<Category> subcategories = parent.getChildCategories();
 
-    @RequestMapping(path = "/{childid}", method = RequestMethod.DELETE)
-    public ResponseEntity<?> removeSubcategory(@PathVariable Long parentid, @PathVariable Long childid) {
-    	
-        // Getting the requiring category; or throwing exception if not found
-        final Category parent = categoryService.getCategoryById(parentid);
-        if( parent == null)
-        	throw  new NotFoundException(parentid);
-        
-        // Getting the requiring category; or throwing exception if not found
-        final Category child = categoryService.getCategoryById(childid);
-        if( child == null)
-        	throw  new NotFoundException(childid);
+		return ResponseEntity.ok(subcategories);
+	}
 
-        // Validating if association exists...
-        if (!categoryService.isChildCategory(child, parent)) {
-            throw new IllegalArgumentException("category " + parent.getId() + " does not contain subcategory " + child.getId());
-        }
+	// parent category에 딸린 subcategroies 중 {childid} 가져오기
+	@RequestMapping(path = "/{childid}", method = RequestMethod.POST)
+	public ResponseEntity<?> addSubcategory(@PathVariable Long parentid, @PathVariable Long childid) {
+		final Category parent = categoryService.getCategoryById(parentid);
+		if (parent == null)
+			throw new NotFoundException(parentid);
 
-        // Dis-associating parent with subcategory...
-        categoryService.removeChildCategory(child, parent);
+		final Category child = categoryService.getCategoryById(childid);
+		if (child == null)
+			throw new NotFoundException(childid);
 
-        return ResponseEntity.noContent().build();
-    }
+		// Validating if association exists...
+		if (!categoryService.isChildCategory(child, parent)) {
+			throw new IllegalArgumentException(
+					"category " + parent.getId() + " does not contain subcategory " + child.getId());
+		}
+		return ResponseEntity.ok(child);
+	}
+
+	@RequestMapping(path = "/{childid}", method = RequestMethod.DELETE)
+	public ResponseEntity<?> removeSubcategory(@PathVariable Long parentid, @PathVariable Long childid) {
+
+		// Getting the requiring category; or throwing exception if not found
+		final Category parent = categoryService.getCategoryById(parentid);
+		if (parent == null)
+			throw new NotFoundException(parentid);
+
+		// Getting the requiring category; or throwing exception if not found
+		final Category child = categoryService.getCategoryById(childid);
+		if (child == null)
+			throw new NotFoundException(childid);
+
+		// Validating if association exists...
+		if (!categoryService.isChildCategory(child, parent)) {
+			throw new IllegalArgumentException(
+					"category " + parent.getId() + " does not contain subcategory " + child.getId());
+		}
+
+		// Dis-associating parent with subcategory...
+		categoryService.removeChildCategory(child, parent);
+
+		return ResponseEntity.noContent().build();
+	}
 
 }
