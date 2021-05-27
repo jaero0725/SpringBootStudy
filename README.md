@@ -11,7 +11,7 @@
 * <a href="https://github.com/jaero0725/SpringBootStudy/wiki/01)-helloHibernate">helloHibernate</a> 
 * <a href="https://github.com/jaero0725/SpringBootStudy/wiki/02)-helloRest">helloRest</a>
 * <a href="https://github.com/jaero0725/SpringBootStudy/wiki/03)-eCommerce">eCommerce</a>
-* helloSpringBoot
+* <a href="https://github.com/jaero0725/SpringBootStudy/wiki/04)-helloSpringboot">helloSpringBoot</a>
 * helloBoot
 * helloSpringDataJpa
 * helloSpringSecurity
