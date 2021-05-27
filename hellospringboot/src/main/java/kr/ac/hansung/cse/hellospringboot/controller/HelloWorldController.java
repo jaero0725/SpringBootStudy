@@ -7,12 +7,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class HelloWorldController {
 
     @GetMapping("/")
-    public String sayHello(){
+    public String sayHello() {
         return "index";
     }
 
     @GetMapping("/hi")
-    public String sayHi(){
+    public String sayHi() {
         return "index";
     }
 }
