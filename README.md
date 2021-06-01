@@ -13,7 +13,7 @@
 * <a href="https://github.com/jaero0725/SpringBootStudy/wiki/03)-eCommerce">eCommerce</a>
 * <a href="https://github.com/jaero0725/SpringBootStudy/wiki/04)-helloSpringboot">helloSpringBoot</a>
 * <a href="https://github.com/jaero0725/SpringBootStudy/wiki/05)-helloBoot">helloBoot</a> 
-* helloSpringDataJpa
+* <a href="https://github.com/jaero0725/SpringBootStudy/wiki/06)-helloSpringDataJpa">helloSpringDataJpa</a>  
 * helloSpringSecurity
 * helloApplicationRunner
 * helloHateoas
