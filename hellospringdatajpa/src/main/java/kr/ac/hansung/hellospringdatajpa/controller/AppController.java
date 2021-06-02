@@ -40,7 +40,7 @@ public class AppController {
     public String saveProduct(@ModelAttribute("product") Product product) {
         service.save(product);
 
-        return "redirect:/";
+        return "redirect:/"; //root로 redirect
     }
 
     @RequestMapping("/edit/{id}")
