@@ -9,6 +9,7 @@ import org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
+    //따로 Controller 만들 필요가 없어진다.
     @Override
     public void addViewControllers(ViewControllerRegistry registry)   {
         registry.addViewController("/").setViewName("home");
