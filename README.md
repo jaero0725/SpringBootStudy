@@ -11,10 +11,10 @@
 * <a href="https://github.com/jaero0725/SpringBootStudy/wiki/01)-helloHibernate">helloHibernate</a> 
 * <a href="https://github.com/jaero0725/SpringBootStudy/wiki/02)-helloRest">helloRest</a>
 * <a href="https://github.com/jaero0725/SpringBootStudy/wiki/03)-eCommerce">eCommerce</a>
-* helloSpringBoot
-* helloBoot
-* helloSpringDataJpa
-* helloSpringSecurity
+* <a href="https://github.com/jaero0725/SpringBootStudy/wiki/04)-helloSpringboot">helloSpringBoot</a>
+* <a href="https://github.com/jaero0725/SpringBootStudy/wiki/05)-helloBoot">helloBoot</a> 
+* <a href="https://github.com/jaero0725/SpringBootStudy/wiki/06)-helloSpringDataJpa">helloSpringDataJpa</a>  
+* <a href="https://github.com/jaero0725/SpringBootStudy/wiki/07)-helloSpringSecurity">helloSpringSecurity</a>   
 * helloApplicationRunner
 * helloHateoas
 
