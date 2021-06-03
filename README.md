@@ -15,8 +15,7 @@
 * <a href="https://github.com/jaero0725/SpringBootStudy/wiki/05)-helloBoot">helloBoot</a> 
 * <a href="https://github.com/jaero0725/SpringBootStudy/wiki/06)-helloSpringDataJpa">helloSpringDataJpa</a>  
 * <a href="https://github.com/jaero0725/SpringBootStudy/wiki/07)-helloSpringSecurity">helloSpringSecurity</a>   
-* helloApplicationRunner
-* helloHateoas
+* <a href="https://github.com/jaero0725/SpringBootStudy/wiki/08)-helloHateoas">helloHateoas</a>    
 
 ## :clipboard: 주요 키워드
 * Spring & Spring Boot 
