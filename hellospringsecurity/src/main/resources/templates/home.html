@@ -1,20 +1,28 @@
 <!DOCTYPE html>
-<html   xmlns:th=http://www.thymeleaf.org
-        xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
-    <title>Welcome to Spring Security tutorial</title>
+    <title>SpringBoot Security</title>
 </head>
+
 <body>
-<h2>Welcome</h2>
-<p>Spring Security tutorial</p>
-<div sec:authorize="hasRole('USER')">Text visible to user.</div>
-<div sec:authorize="hasRole('ADMIN')">Text visible to admin.</div>
-<div sec:authorize="isAuthenticated()"> Text visible only to authenticated users. </div>
+<h2> 안녕하세요. 스프링 부트 보안 사이트에 오신 것을 환영합니다 </h2>
+<!-- 인증 받은 경우  -->
+<div sec:authorize="isAuthenticated()">
+    <p>Welcome <span sec:authentication="principal.username">User</span></p>
+    <p><a th:href="@{/logout}">Logout</a></p>
 
-Authenticated username:
-<div sec:authentication="name"></div>
+    <!-- Admin인 경우 -->
+    <div sec:authorize="hasRole('ROLE_ADMIN')">
+        <h3>You will see this only if you are ADMIN</h3>
+        <p><a th:href="@{/admin/home}">Admin Home</a></p>
+    </div>
+</div>
 
-Authenticated user roles:
-<div sec:authentication="principal.authorities"></div>
+<!-- 인증안 받은 경우  -->
+<div sec:authorize="isAnonymous()">
+    <p><a th:href="@{/login}">LogIn</a></p>
+</div>
 </body>
 </html>

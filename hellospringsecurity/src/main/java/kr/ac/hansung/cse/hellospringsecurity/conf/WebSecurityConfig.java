@@ -50,17 +50,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
+
                 .formLogin()
                 .loginPage("/login")
                 .defaultSuccessUrl("/home")
                 .failureUrl("/login?error")
                 .permitAll()
                 .and()
+
                 .logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/login?logout")
                 .permitAll()
                 .and()
+
                 .exceptionHandling()
                 .accessDeniedPage("/accessDenied");
     }

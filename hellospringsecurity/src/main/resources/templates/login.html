@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+  <title>SpringBoot Security</title>
+</head>
+<body>
+<h2> 로그인 화면 </h2>
+<form action="login" th:action="@{/login}" method="post">
+  <!-- 로그인 실패 시 보여주는 내용 -->
+  <div th:if="${param.error}">
+    <span style="color:red">Invalid Email and Password.</span>
+  </div>
+  <!-- 로그인 아웃 시 보여주는 내용 -->
+  <div th:if="${param.logout}">
+    <span style="color:blue">Successfully logged out</span>
+  </div>
+
+  <label for="id-email">Email:</label><br>
+  <input type="email" id="id-email" name="username" placeholder="Email"><br>
+
+  <label for="id-password">Password:</label><br>
+  <input type="password" id="id-password" name="password" placeholder="Password" />
+
+  <button type="submit">LogIn</button>
+</form>
+</body>
+</html>
