@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+    <title>SpringBoot Security</title>
+</head>
+<body>
+<p>Welcome Administrator(<span sec:authentication="principal.username">User</span>)</p>
+<p><a th:href="@{/logout}">Logout</a></p>
+</body>
+
+</html>
